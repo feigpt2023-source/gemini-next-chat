@@ -66,6 +66,7 @@ export function getSafetySettings(level: string) {
 
 function canUseSearchAsTool(model: string) {
   if (model.startsWith('gemini-2.5-pro') || model.startsWith('gemini-2.5-flash')) return true
+  if (model.startsWith('gemma-')) return false  // Gemma 不支持
   return (
     model.startsWith('gemini-2.0') && !model.includes('lite') && !model.includes('thinking') && !model.includes('image')
   )
@@ -104,7 +105,8 @@ export default async function chat({
     !OldVisionModel.includes(model) &&
     !model.includes('lite') &&
     !model.includes('thinking') &&
-    !model.includes('image')
+    !model.includes('image') &&
+    !model.startsWith('gemma-')  // 新增：Gemma 不支持工具
   ) {
     const toolPrompt = getFunctionCallPrompt()
     modelParams.tools = tools
