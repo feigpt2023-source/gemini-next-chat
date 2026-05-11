@@ -15,7 +15,7 @@ type Props = {
 let cachedModelList = false
 
 function filterModel(models: Model[] = []) {
-  return models.filter((model) => model.name.startsWith('models/gemini-'))
+  return models.filter((model) => model.name.startsWith('models/gemini-') || model.name.startsWith('models/gemma-'))
 }
 
 function ModelSelect({ className, defaultModel }: Props) {
